@@ -1,0 +1,20 @@
+
+****Liabilitities****
+
+Electricity Bill: $13
+Water Bill: $3
+Gas Bill: $31313
+Internet Bill: $3
+Insurance Premium: $13
+Phone bill: $13
+Loans Installment: $31
+
+****Assets:****
+
+Cash in Hand: $131313
+Checking Account: $313
+Savings Account: $13
+Brokerage Accounts (stocks,etc.): $13
+Primary Residence: $13
+Vehicle: $3
+Other: $13
