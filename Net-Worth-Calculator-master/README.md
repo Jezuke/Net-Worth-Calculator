@@ -1,7 +1,9 @@
 # Net-Worth-Calculator OOP
 
 Files included: pro.cpp, pro_gui.hpp
+
 Summary: A program the generates a report of a user's assets and liabilities along with their net worth.
+
 Instructions: To run navigate to the same directory as all the files.
 
 ->make
