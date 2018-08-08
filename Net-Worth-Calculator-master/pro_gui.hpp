@@ -1,7 +1,7 @@
 /*
 Name: Archit Kalpeshkumar Jaiswal/Michael Jezreel Aquitania
 UTA ID: 1001543326/1001542979
-HW5
+Extra Credit
 */
 #ifndef _CLOSET_FUNC_C
 #define _CLOSET_FUNC_C
@@ -50,19 +50,10 @@ public:
 class liability
 {
 public:
- /* double ele;
-  double water;
-  double gas;
-  double wifi;
-  double phone;
-  double insurance;
-  double loansOther;*/
-
 	vector <double> liaValue;
 
 	double total_lia()
 	{
-		/*double total = ele+water+gas+wifi+phone+insurance+loansOther;*/
 		
 		double total = 0;
 		for(int i = 0; i< liaValue.size();i++)
@@ -77,16 +68,6 @@ public:
 class Assets
 {
 public:
-	/*vector <string> other;
-	vector<double> otherF;
-	double cashOnHand;
-	double checkingAccounts;
-	double savingsAccounts;
-	double MoneyMarkets;
-	double PrimaryResidence;
-	double vehicle;
-	double other;*/
-
 	vector <double> assValue;
 
 	double total_assets()
@@ -96,15 +77,9 @@ public:
 		{
 			total = total+assValue[i];
 		}
-		//double total = cashOnHand+checkingAccounts+savingsAccounts+MoneyMarkets+PrimaryResidence+vehicle+other;
 		return total;
 	}
 
-	/*void add_other(string otherAsset, double amount)
-	{
-		other.push_back(otherAsset);
-		otherF.push_back(amount);
-	}*/
 };
 
 class Dialogs
@@ -135,10 +110,13 @@ public:
 
 	    Gtk::Dialog *dialog = new Gtk::Dialog();
 	    dialog->set_title(title);
+	    
 
-	    //Gtk::Label *label = new Gtk::Label(msg);
+	    Gtk::Label *label = new Gtk::Label("Liabilities ($)");
+	    dialog->get_content_area()->pack_start(*label);
+	    label->show();
 
-		//electricity
+	//labels above each entry box
 	   lab[0] = new Gtk::Label("Electricity Bill: ");
 	    ent[0] = new Gtk::Entry();
 	    dialog->get_content_area()->pack_start(*lab[0]);
@@ -148,7 +126,6 @@ public:
 	    ent[0]->show();
 	    dialog->get_vbox()->pack_start(*ent[0]);
 
-	    //water
 	    lab[1] = new Gtk::Label("Water Bill: ");
 	    ent[1] = new Gtk::Entry();
 	    dialog->get_content_area()->pack_start(*lab[1]);
@@ -158,7 +135,6 @@ public:
 	    ent[1]->show();
 	    dialog->get_vbox()->pack_start(*ent[1]);
 
-	    //gas
 	    lab[2] = new Gtk::Label("Gas Bill: ");
 	    ent[2] = new Gtk::Entry();
 	    dialog->get_content_area()->pack_start(*lab[2]);
@@ -168,7 +144,6 @@ public:
 	    ent[2]->show();
 	    dialog->get_vbox()->pack_start(*ent[2]);
 
-	    //wifi
 	    lab[3] = new Gtk::Label("Internet Bill: ");
 	    ent[3] = new Gtk::Entry();
 	    dialog->get_content_area()->pack_start(*lab[3]);
@@ -178,7 +153,6 @@ public:
 	    ent[3]->show();
 	    dialog->get_vbox()->pack_start(*ent[3]);
 
-	    //phone
 	    lab[4] = new Gtk::Label("Phone bill: ");
 	    ent[4] = new Gtk::Entry();
 	    dialog->get_content_area()->pack_start(*lab[4]);
@@ -188,7 +162,6 @@ public:
 	    ent[4]->show();
 	    dialog->get_vbox()->pack_start(*ent[4]);
 
-	    //insurance
 	    lab[5] = new Gtk::Label("Insurance Premium: ");
 	    ent[5] = new Gtk::Entry();
 	    dialog->get_content_area()->pack_start(*lab[5]);
@@ -198,7 +171,6 @@ public:
 	    ent[5]->show();
 	    dialog->get_vbox()->pack_start(*ent[5]);
 
-	    //loans
 	    lab[6] = new Gtk::Label("Loans Installment: ");
 	    ent[6] = new Gtk::Entry();
 	    dialog->get_content_area()->pack_start(*lab[6]);
@@ -208,16 +180,14 @@ public:
 	    ent[6]->show();
 	    dialog->get_vbox()->pack_start(*ent[6]);
 
-	    //last
-	    dialog->add_button("Reset", 0);
+	 dialog->add_button("Cancel", 0);
 
 	    dialog->add_button("OK",1);
 
 	    dialog->set_default_response(1);
-
 	    int result = dialog->run();
-
-		string * text = new string[7];
+		
+		string * text = new string[7]; //gets the different values from the entyr boxes and puts them in array
 		for(int i=0; i<7; i++)
 		{
 			text[i] = ent[i]->get_text();
@@ -230,9 +200,15 @@ public:
 
 	    dialog->close();
 
-	    while (Gtk::Main::events_pending())
-
-	    Gtk::Main::iteration();
+	    while (Main::events_pending())
+	  	{  
+			Main::iteration();
+		}
+	
+		if(result==0)
+		{
+			Main::quit();
+		}
 
 	    delete dialog;
 		for(int i=0;i<7;i++)
@@ -242,17 +218,10 @@ public:
 		    delete ent[i];
 		}
 
-
-			/*ele = stof(text[0]);
-			water = stof(text[1]);
-			gas = stof(text[2]);
-			wifi = stof(text[3]);
-			phone = stof(text[4]);
-			insurance = stof(text[5]);
-			loansOther = stof(text[6]);*/
 			return text;
 
 	}
+
 
 static string * inputAssets(string title, string default_text="")
 {
@@ -263,9 +232,11 @@ static string * inputAssets(string title, string default_text="")
 	Gtk::Dialog *dialog = new Gtk::Dialog();
 	    dialog->set_title(title);
 
-	    //Gtk::Label *label = new Gtk::Label(msg);
+	    Gtk::Label *label = new Gtk::Label("Assets ($)");
+	    dialog->get_content_area()->pack_start(*label);
+	    label->show();
 
-
+	//labels above each entry box
 	   lab1[0] = new Gtk::Label("Cash in Hand: ");
 	    ent1[0] = new Gtk::Entry();
 	    dialog->get_content_area()->pack_start(*lab1[0]);
@@ -335,7 +306,7 @@ static string * inputAssets(string title, string default_text="")
 	    dialog->get_vbox()->pack_start(*ent1[6]);
 
 	    //last
-	    dialog->add_button("Reset", 0);
+	    dialog->add_button("Cancel", 0);
 
 	    dialog->add_button("OK",1);
 
@@ -356,9 +327,15 @@ static string * inputAssets(string title, string default_text="")
 
 	    dialog->close();
 
-	    while (Gtk::Main::events_pending())
-
-	    Gtk::Main::iteration();
+	    while (Main::events_pending())
+		{
+			Main::iteration();
+		}
+			
+		if(result==0)
+		{
+			Main::quit();
+		}
 
 	    delete dialog;
 		for(int i=0;i<7;i++)
@@ -390,7 +367,7 @@ static Person inputInfo(string title, string default_text="")
 	entryName.show();
 	dialog.get_vbox()->pack_start(entryName);
 
-	Label label2("Enter your income:");
+	Label label2("Enter your income ($):");
 	dialog.get_content_area()->pack_start(label2);
 	label2.show();
 	Entry entryIncome;
@@ -414,32 +391,9 @@ static Person inputInfo(string title, string default_text="")
 		return p1;
 	else
 		Main::quit();
-
-	
 }
-
-//asks conformation question
-  static int question(string msg,string title, vector<std::string> buttons)
-  {
-
-    Dialog *dialog = new Gtk::Dialog();
-    dialog->set_title(title);
-    Label *label = new Gtk::Label(msg);
-    dialog->get_content_area()->pack_start(*label);
-    label->show();
-    for (int i = 0; i < (int)buttons.size(); i++)
-    dialog->add_button(buttons[i], i); //i	corresponds	to	signal
-    int result = dialog->run();
-    dialog->close();
-    while (Main::events_pending())
-    Main::iteration();
-    delete dialog;
-    delete label;
-    return result; //returns	number-signals	to	us	which	button	was	pushed
-  }
 };
 
-//holds information about seller
 
 
 #endif
