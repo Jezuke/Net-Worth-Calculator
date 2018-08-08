@@ -4,6 +4,29 @@
 #include<iomanip>
 using namespace std;
 
+void output(string file, Person p, liability l, Assets a, double totalLia, double totalAssets, double totalNet)
+{
+	ofstream report;
+	report.open(file);
+	report<<"---------Month's Net Worth Report--------\n\n";
+	report<<"Name: " << p.name << "	" << "	Income: $" <<p.income<<"\n\n";
+	report<<"\n****Liabilitities****\n\n";
+	for(int x= 0; x<p.liabilities.size();x++)
+	{
+		report << p.liabilities[x]<<l.liaValue[x]<<endl;
+	}
+	report<<"\n====Total Liabilities: $" << totalLia<< "====\n";
+	report<<"\n****Assets:****\n\n";
+	for(int x= 0; x<p.liabilities.size();x++)
+	{
+		report << p.assets[x]<<a.assValue[x]<<endl;
+	}
+	report<<"\n====Total Assets: $" << totalAssets<<"====\n";
+	report<<"\n\n=======Net Worth: $"<<totalNet<<"=========\n"<<endl;
+
+	report.close();
+}
+
 int main(int argc, char** argv){
 	Main kit(argc,argv);
 
@@ -18,14 +41,6 @@ int main(int argc, char** argv){
 		l.liaValue.push_back(stof(ret[i]));
 	}
 
-	/*l.ele = stof(ret[0]);
-	l.water = stof(ret[1]);
-	l.gas = stof(ret[2]);
-	l.wifi = stof(ret[3]);
-	l.phone = stof(ret[4]);
-	l.insurance = stof(ret[5]);
-	l.loansOther = stof(ret[6]);*/
-
 	double totalLia = l.total_lia();
 
 	Assets a;
@@ -36,14 +51,6 @@ int main(int argc, char** argv){
 		a.assValue.push_back(stof(retAsset[j]));
 	}
 
-	/*a.cashOnHand= stof(retAsset[0]);
-	a.checkingAccounts= stof(retAsset[1]);
-	a.savingsAccounts =stof(retAsset[2]);
-	a.MoneyMarkets=stof(retAsset[3]);
-	a.PrimaryResidence=stof(retAsset[4]);
-	a.vehicle=stof(retAsset[5]);
-	a.other = stof(retAsset[6]);*/
-
 	double totalAssets = a.total_assets();
 
 	double totalNet =p.income+ totalAssets-totalLia;
@@ -53,21 +60,9 @@ int main(int argc, char** argv){
 	Dialogs::message("Total Assets: $ "+ to_string(totalAssets).substr(0, to_string(totalAssets).size()-4), "Thank you!");
 	Dialogs::message("Total Net Worth as of the current month: $" + to_string(totalNet).substr(0, to_string(totalNet).size()-4), "Thank you!");
 
-	//Place in function
-	ofstream report;
-	report.open("networth.txt");
-	report<<"\n****Liabilitities****\n\n";
-	for(int x= 0; x<p.liabilities.size();x++)
-	{
-		report << p.liabilities[x]<<l.liaValue[x]<<endl;
-	}
-	report<<"\n****Assets:****\n\n";
-	for(int x= 0; x<p.liabilities.size();x++)
-	{
-		report << p.assets[x]<<a.assValue[x]<<endl;
-	}
-	
-	report.close();
+
+	output("networth.txt", p, l, a, totalLia,totalAssets,totalNet);
+
 	return 0;
 
 }
